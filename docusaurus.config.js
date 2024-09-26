@@ -41,6 +41,7 @@ const config = {
         // Options here
         indexDocs: true,
         indexPages: true,
+        indexBlog: false,
       },
     ]
   ],
