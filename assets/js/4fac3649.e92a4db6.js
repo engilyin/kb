@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkalex_ilin_kb=self.webpackChunkalex_ilin_kb||[]).push([[4939],{9299:e=>{e.exports=JSON.parse('{"tag":{"label":"test","permalink":"/kb/tags/test","allTagsPath":"/kb/tags","count":1,"items":[{"id":"Development/Java/testing","title":"Testing","description":"Testing on Java","permalink":"/kb/Development/Java/testing"}],"unlisted":false}}')}}]);
