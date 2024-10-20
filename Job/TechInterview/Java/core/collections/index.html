@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-Job/TechInterview/Java/core/collections" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.5.2">
+<title data-rh="true">collections | Alex Ilin Knowledge Base</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://engilyin.github.com/kb/Job/TechInterview/Java/core/collections"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="collections | Alex Ilin Knowledge Base"><meta data-rh="true" name="description" content="Collections"><meta data-rh="true" property="og:description" content="Collections"><link data-rh="true" rel="icon" href="/kb/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://engilyin.github.com/kb/Job/TechInterview/Java/core/collections"><link data-rh="true" rel="alternate" href="https://engilyin.github.com/kb/Job/TechInterview/Java/core/collections" hreflang="en"><link data-rh="true" rel="alternate" href="https://engilyin.github.com/kb/Job/TechInterview/Java/core/collections" hreflang="x-default"><link rel="stylesheet" href="/kb/assets/css/styles.c22c4916.css">
+<script src="/kb/assets/js/runtime~main.e21ed650.js" defer="defer"></script>
+<script src="/kb/assets/js/main.f61584fd.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard" data-theme="light">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();null!==e?t(e):window.matchMedia("(prefers-color-scheme: dark)").matches?t("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,t("light"))}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/kb/"><div class="navbar__logo"><img src="/kb/img/logo.jpg" alt="Alex Ilin KB Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/kb/img/logo.jpg" alt="Alex Ilin KB Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Alex Ilin Knowledge Base</b></a></div><div class="navbar__items navbar__items--right"><div class="navbarSearchContainer_Bca1"><div class="dsla-search-wrapper"><div class="dsla-search-field" data-tags="default,docs-default-current"></div></div></div><a href="https://github.com/engilyin/kb" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kb/">Alex Ilin Knowledge Base</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/kb/Cloud/AWS/">Cloud</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/databases">Databases</a><button aria-label="Expand sidebar category &#x27;Databases&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/devops">DevOps</a><button aria-label="Expand sidebar category &#x27;DevOps&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/development">Development</a><button aria-label="Expand sidebar category &#x27;Development&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--active" href="/kb/category/job">Job</a><button aria-label="Collapse sidebar category &#x27;Job&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--active" tabindex="0" href="/kb/category/interview">Interview</a><button aria-label="Collapse sidebar category &#x27;Interview&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--active" tabindex="0" href="/kb/Job/TechInterview/Java/">Java Tech Interview</a><button aria-label="Collapse sidebar category &#x27;Java Tech Interview&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/kb/Job/TechInterview/Java/core/collections">core</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/kb/Job/TechInterview/Java/core/collections">collections</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/Java/core/concurrency">concurrency</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/Java/core/core-java">core-java</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/Java/core/garbage-collection">garbage-collection</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/Java/core/java-8">java-8</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/Java/core/java-memory-model">java-memory-model</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/Java/core/jvm-internals">jvm-internals</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/kb/Job/TechInterview/Java/design/approach">design</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/kb/Job/TechInterview/Java/opinion/myanswers">opinion</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/kb/Job/TechInterview/Java/problem-solving/common-coding-problems">problem-solving</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/kb/Job/TechInterview/Java/related/sql">related</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/kb/Job/TechInterview/Java/spring/aop">spring</a></div></li></ul></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/db-tech-interview">Tech Interview DB</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/Job/TechInterview/devops-tech-interview">Tech Interview DevOps</a></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/kb/Network/networking">Network</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/sre">SRE</a><button aria-label="Expand sidebar category &#x27;SRE&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/tools">Tools</a><button aria-label="Expand sidebar category &#x27;Tools&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_PEFL"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/kb/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item"><a class="breadcrumbs__link" itemprop="item" href="/kb/category/job"><span itemprop="name">Job</span></a><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item"><a class="breadcrumbs__link" itemprop="item" href="/kb/category/interview"><span itemprop="name">Interview</span></a><meta itemprop="position" content="2"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item"><a class="breadcrumbs__link" itemprop="item" href="/kb/Job/TechInterview/Java/"><span itemprop="name">Java Tech Interview</span></a><meta itemprop="position" content="3"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">core</span><meta itemprop="position" content="4"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">collections</span><meta itemprop="position" content="5"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>collections</h1></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="collections">Collections<a href="#collections" class="hash-link" aria-label="Direct link to Collections" title="Direct link to Collections">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="resources">Resources<a href="#resources" class="hash-link" aria-label="Direct link to Resources" title="Direct link to Resources">​</a></h3>
+<ul>
+<li><a href="https://www.amazon.com/Programmer-Study-1Z0-803-1Z0-804-Certification/dp/0071772006/ref=asap_bc?ie=UTF8" target="_blank" rel="noopener noreferrer">OCA/OCP Java SE 7 Programmer</a> (book)</li>
+<li><a href="http://files.zeroturnaround.com/pdf/zt_java_collections_cheat_sheet.pdf" target="_blank" rel="noopener noreferrer">Cheat sheet</a> (PDF)</li>
+<li><a href="/kb/Job/TechInterview/Java/core/topics/design/effective-java.md">Effective Java study notes</a></li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="table-of-contents">Table of contents<a href="#table-of-contents" class="hash-link" aria-label="Direct link to Table of contents" title="Direct link to Table of contents">​</a></h3>
+<ul>
+<li><a href="#collections">Collections</a>
+<ul>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#table-of-contents">Table of contents</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#collection-implementations">Collection Implementations</a></li>
+<li><a href="#lists">Lists</a>
+<ul>
+<li><a href="#arraylist">ArrayList</a></li>
+<li><a href="#linkedlist">LinkedList</a></li>
+<li><a href="#stack">Stack</a></li>
+<li><a href="#vector">Vector</a></li>
+<li><a href="#copyonwritearraylist">CopyOnWriteArrayList</a></li>
+<li><a href="#collectionssynchronizedlist">Collections.synchronizedList</a></li>
+</ul>
+</li>
+<li><a href="#sets">Sets</a>
+<ul>
+<li><a href="#hashset">HashSet</a></li>
+<li><a href="#linkedhashset">LinkedHashSet</a></li>
+<li><a href="#treeset">TreeSet</a></li>
+<li><a href="#concurrentskiplistset">ConcurrentSkipListSet</a></li>
+<li><a href="#copyonwritearrayset">CopyOnWriteArraySet</a></li>
+<li><a href="#enumset">EnumSet</a></li>
+</ul>
+</li>
+<li><a href="#maps">Maps</a>
+<ul>
+<li><a href="#hashmap">HashMap</a></li>
+<li><a href="#hashmap-implementation-details">HashMap implementation details</a></li>
+<li><a href="#linkedhashmap">LinkedHashMap</a></li>
+<li><a href="#hashtable">Hashtable</a></li>
+<li><a href="#concurrenthashmap">ConcurrentHashMap</a></li>
+<li><a href="#treemap">TreeMap</a></li>
+<li><a href="#concurrentskiplistmap">ConcurrentSkipListMap</a></li>
+</ul>
+</li>
+<li><a href="#queues">Queues</a>
+<ul>
+<li><a href="#linkedlist-1">LinkedList</a></li>
+<li><a href="#arrayblockingqueue">ArrayBlockingQueue</a></li>
+<li><a href="#linkedblockingqueue">LinkedBlockingQueue</a></li>
+<li><a href="#concurrentlinkedqueue">ConcurrentLinkedQueue</a></li>
+<li><a href="#deque-classes">Deque classes</a></li>
+<li><a href="#priorityqueue">PriorityQueue</a></li>
+<li><a href="#priorityblockingqueue">PriorityBlockingQueue</a></li>
+<li><a href="#delayqueue">DelayQueue</a></li>
+<li><a href="#synchronousqueue">SynchronousQueue</a></li>
+</ul>
+</li>
+<li><a href="#equals-and-hashcode">equals and hashCode</a></li>
+<li><a href="#collections-class">Collections class</a>
+<ul>
+<li><a href="#utility-methods">Utility methods</a></li>
+<li><a href="#methods-returning-wrapped-instances">Methods returning wrapped instances</a></li>
+</ul>
+</li>
+<li><a href="#hierarchy-and-classes">Hierarchy and classes</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h3>
+<p>A <em>collection</em> is an object that represents a group of objects (such as the classic ArrayList class).
+A <em>collections</em> framework is a unified architecture for representing and manipulating collections, enabling collections to be manipulated independently of implementation details.</p>
+<p>Advantages:</p>
+<ul>
+<li>Reduces programming effort</li>
+<li>Increases performance</li>
+<li>Provides interoperability between unrelated APIs</li>
+<li>Reduces the effort required to learn APIs</li>
+<li>Reduces the effort required to design and implement APIs</li>
+<li>Fosters software reuse</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="Collections Hierarchy" src="/kb/assets/images/Collections_Hierarchy-5bda8af9df8ee1a1f20436572c8efe35.svg" width="790" height="547" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="collection-implementations">Collection Implementations<a href="#collection-implementations" class="hash-link" aria-label="Direct link to Collection Implementations" title="Direct link to Collection Implementations">​</a></h3>
+<table><thead><tr><th>Interface</th><th>Hash Table</th><th>Resizable Array</th><th>Balanced Tree</th><th>Linked List</th><th>Hash Table + Linked List</th></tr></thead><tbody><tr><td>Set</td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashSet.html" target="_blank" rel="noopener noreferrer"><code>HashSet</code></a></td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TreeSet.html" target="_blank" rel="noopener noreferrer"><code>TreeSet</code></a></td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/LinkedHashSet.html" target="_blank" rel="noopener noreferrer"><code>LinkedHashSet</code></a></td></tr><tr><td>List</td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html" target="_blank" rel="noopener noreferrer"><code>ArrayList</code></a></td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/LinkedList.html" target="_blank" rel="noopener noreferrer"><code>LinkedList</code></a></td><td></td></tr><tr><td>Deque</td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayDeque.html" target="_blank" rel="noopener noreferrer"><code>ArrayDeque</code></a></td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/LinkedList.html" target="_blank" rel="noopener noreferrer"><code>LinkedList</code></a></td><td></td></tr><tr><td>Map</td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html" target="_blank" rel="noopener noreferrer"><code>HashMap</code></a></td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TreeMap.html" target="_blank" rel="noopener noreferrer"><code>TreeMap</code></a></td><td></td><td><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/LinkedHashMap.html" target="_blank" rel="noopener noreferrer"><code>LinkedHashMap</code></a></td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lists">Lists<a href="#lists" class="hash-link" aria-label="Direct link to Lists" title="Direct link to Lists">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="arraylist">ArrayList<a href="#arraylist" class="hash-link" aria-label="Direct link to ArrayList" title="Direct link to ArrayList">​</a></h4>
+<ul>
+<li>Backed by array (which are co-located in memory), thus fast iteration and get(i) operation.</li>
+<li>Slow inserts when the backed array is full and has to double in size.</li>
+<li>Fail-fast iterators, which can throw ConcurrentModificationException.</li>
+<li>Add is O(n) - When element is added to middle of list, all elements on the right have to be moved.</li>
+<li><a href="http://stackoverflow.com/a/322742/3494368" target="_blank" rel="noopener noreferrer">Use Case</a> - When iterations outnumber number of read/writes.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="linkedlist">LinkedList<a href="#linkedlist" class="hash-link" aria-label="Direct link to LinkedList" title="Direct link to LinkedList">​</a></h4>
+<ul>
+<li>Chain of nodes referencing each other (doubly linked list).</li>
+<li>No co-location of nodes, pointers need to be chased for next element, thus slow iterations and get(i) operation.</li>
+<li>Fail-fast iterators, which can throw ConcurrentModificationException.</li>
+<li>Implements Queue interface, thus allows offer/pop/peek operations.</li>
+<li>Add is O(1) - Adding element in middle of list is just adjusting the node pointers.</li>
+<li>Internally uses references (~ to skiplist) to optimize iterations.</li>
+<li><a href="http://stackoverflow.com/a/322742/3494368" target="_blank" rel="noopener noreferrer">Use Case</a> - Lot of inserts in middle of the list.</li>
+</ul>
+<table><thead><tr><th>Operation</th><th>ArrayList</th><th>LinkedList</th></tr></thead><tbody><tr><td>get(i)</td><td>O(1)</td><td>O(n)</td></tr><tr><td>add()</td><td>O(1) amortized</td><td>O(1)</td></tr><tr><td>remove(i)</td><td>O(n) Remove and move all elements</td><td>O(n) Iterate then remove</td></tr><tr><td>iterator.remove</td><td>O(n)</td><td>O(1)</td></tr></tbody></table>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="stack">Stack<a href="#stack" class="hash-link" aria-label="Direct link to Stack" title="Direct link to Stack">​</a></h4>
+<ul>
+<li>For stack operations push/pop/peek.</li>
+<li>Not used anymore. Recommended to use Deque implementations.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="vector">Vector<a href="#vector" class="hash-link" aria-label="Direct link to Vector" title="Direct link to Vector">​</a></h4>
+<ul>
+<li>Synchronized version of list.</li>
+<li>Not used anymore. Recommended below mentioned alternatives.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="copyonwritearraylist">CopyOnWriteArrayList<a href="#copyonwritearraylist" class="hash-link" aria-label="Direct link to CopyOnWriteArrayList" title="Direct link to CopyOnWriteArrayList">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Backed array is copied during every element insert.</li>
+<li>Avoids ConcurrentModificationException since iteration can continue in original copy, and insert results in new copy.</li>
+<li>High memory usage (more pressure on GC) due to the resulting copies.</li>
+<li>Use case - Large number of threads for read, low number of writes.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="collectionssynchronizedlist">Collections.synchronizedList<a href="#collectionssynchronizedlist" class="hash-link" aria-label="Direct link to Collections.synchronizedList" title="Direct link to Collections.synchronizedList">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Can be slow due to mutual exclusion.</li>
+<li>Iterations have to be externally synchronized by developer</li>
+<li>Can throw ConcurrentModificationException if (above mentioned) synchronization not done during iteration.</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="sets">Sets<a href="#sets" class="hash-link" aria-label="Direct link to Sets" title="Direct link to Sets">​</a></h3>
+<p>Collection of unique elements. No duplicates.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="hashset">HashSet<a href="#hashset" class="hash-link" aria-label="Direct link to HashSet" title="Direct link to HashSet">​</a></h4>
+<ul>
+<li>Backed by HashMap.</li>
+<li>Performance can vary based on hashCode implementation.</li>
+<li>Constant time get/remove/add/contains (subject to above point).</li>
+<li>Fail-fast iterators.</li>
+<li>Insertion order not retained.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="linkedhashset">LinkedHashSet<a href="#linkedhashset" class="hash-link" aria-label="Direct link to LinkedHashSet" title="Direct link to LinkedHashSet">​</a></h4>
+<ul>
+<li>Insertion order is retained.</li>
+<li>Uses doubly-linked list to maintain the order.</li>
+<li>Iteration can be slower due to this.</li>
+<li>Other features, same as HashSet above (except iteration)</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="treeset">TreeSet<a href="#treeset" class="hash-link" aria-label="Direct link to TreeSet" title="Direct link to TreeSet">​</a></h4>
+<ul>
+<li>Elements sorted by their natural order (or Comparator passed in constructor).</li>
+<li>Log(n) time for add/remove/contains operations.</li>
+<li>Navigable (floor, ceiling, higher, lower, headSet, tailSet operations).</li>
+<li>Fail fast iterators.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="concurrentskiplistset">ConcurrentSkipListSet<a href="#concurrentskiplistset" class="hash-link" aria-label="Direct link to ConcurrentSkipListSet" title="Direct link to ConcurrentSkipListSet">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Log(n) time for add/remove/contains operations.</li>
+<li>Navigable (floor, ceiling, higher, lower, headSet, tailSet operations).</li>
+<li>Size method is not constant time operation.</li>
+<li>Weakly consistent iterators (do not throw ConcurrentModificationException but also <strong>may not</strong> reflect concurrently added items).</li>
+<li>Thus, bulk operations (addAll, removeAll, retainAll, containsAll etc) are not guaranteed to be atomic.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="copyonwritearrayset">CopyOnWriteArraySet<a href="#copyonwritearrayset" class="hash-link" aria-label="Direct link to CopyOnWriteArraySet" title="Direct link to CopyOnWriteArraySet">​</a></h4>
+<ul>
+<li>Backed by CopyOnWriteArrayList</li>
+<li>Thread-safe.</li>
+<li>Slow. Operations have to iterate through the array for most operations.</li>
+<li>Recommended where reads vastly outnumber writes and set size is small.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="enumset">EnumSet<a href="#enumset" class="hash-link" aria-label="Direct link to EnumSet" title="Direct link to EnumSet">​</a></h4>
+<ul>
+<li>To be used with Enum types.</li>
+<li>Very efficient and fast (backed by bit-vectors).</li>
+<li>Weakly consistent iterators.</li>
+<li>Nulls not allowed.</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="maps">Maps<a href="#maps" class="hash-link" aria-label="Direct link to Maps" title="Direct link to Maps">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="hashmap">HashMap<a href="#hashmap" class="hash-link" aria-label="Direct link to HashMap" title="Direct link to HashMap">​</a></h4>
+<ul>
+<li>key, value pairs.</li>
+<li>Permits a null key, and null values.</li>
+<li>Iteration order not guaranteed.</li>
+<li>Throws ConcurrentModificationException.</li>
+<li><a href="http://www.deepakvadgama.com/blog/java-hashmap-internals/" target="_blank" rel="noopener noreferrer">Article detailing implementation</a>.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="hashmap-implementation-details">HashMap implementation details<a href="#hashmap-implementation-details" class="hash-link" aria-label="Direct link to HashMap implementation details" title="Direct link to HashMap implementation details">​</a></h4>
+<ul>
+<li>Backed by array (buckets), array-size is known as table-size.</li>
+<li>Position in array = element-hash % table-size.</li>
+<li>If elements end up in same bucket, they are added to linked-list (or a balanced red-black tree).</li>
+<li>O(1) access (if hashcode properly distributes the values, else O(n) for linked-list &amp; O(log(n)) for tree.</li>
+<li>Load factor - 0.75 default, decides when table-size should increase (double).</li>
+<li>Bigger load-factor - more space-efficient, reduced speed (due to more elements in same bucket).</li>
+<li>Lower load-factor - less space-efficient, more speed (less, ideally 1 element in 1 bucket).</li>
+<li>Initial table-size = 16.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="linkedhashmap">LinkedHashMap<a href="#linkedhashmap" class="hash-link" aria-label="Direct link to LinkedHashMap" title="Direct link to LinkedHashMap">​</a></h4>
+<ul>
+<li>Insertion order is retained.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="hashtable">Hashtable<a href="#hashtable" class="hash-link" aria-label="Direct link to Hashtable" title="Direct link to Hashtable">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Not used anymore, ConcurrentHashMap recommended.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="concurrenthashmap">ConcurrentHashMap<a href="#concurrenthashmap" class="hash-link" aria-label="Direct link to ConcurrentHashMap" title="Direct link to ConcurrentHashMap">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Fine grained locking called striped locking (map is divided into segments, each with associated lock. Threads holding different locks don&#x27;t conflict).</li>
+<li>Improved performance over Hashtable.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="treemap">TreeMap<a href="#treemap" class="hash-link" aria-label="Direct link to TreeMap" title="Direct link to TreeMap">​</a></h4>
+<ul>
+<li>Sorted by keys.</li>
+<li>Uses Red-Black tree implementation.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="concurrentskiplistmap">ConcurrentSkipListMap<a href="#concurrentskiplistmap" class="hash-link" aria-label="Direct link to ConcurrentSkipListMap" title="Direct link to ConcurrentSkipListMap">​</a></h4>
+<ul>
+<li>Thread-safe version of TreeMap.</li>
+<li>Navigable (floor, ceiling, higher, lower, headSet, tailSet operations).</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="queues">Queues<a href="#queues" class="hash-link" aria-label="Direct link to Queues" title="Direct link to Queues">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="linkedlist-1">LinkedList<a href="#linkedlist-1" class="hash-link" aria-label="Direct link to LinkedList" title="Direct link to LinkedList">​</a></h4>
+<ul>
+<li>Implements Queue interface.</li>
+<li>offer, peek, poll operations.</li>
+<li>Use case - task queues</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="arrayblockingqueue">ArrayBlockingQueue<a href="#arrayblockingqueue" class="hash-link" aria-label="Direct link to ArrayBlockingQueue" title="Direct link to ArrayBlockingQueue">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Backed by array. Thus bounded in size.</li>
+<li>Adding element to full queue results in blocking.</li>
+<li>Polling an empty queue results in blocking.</li>
+<li>Use case - Producer consumer problem.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="linkedblockingqueue">LinkedBlockingQueue<a href="#linkedblockingqueue" class="hash-link" aria-label="Direct link to LinkedBlockingQueue" title="Direct link to LinkedBlockingQueue">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Backed by linked-list.</li>
+<li>Optionally bounded in size. Takes maxSize as constructor argument.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="concurrentlinkedqueue">ConcurrentLinkedQueue<a href="#concurrentlinkedqueue" class="hash-link" aria-label="Direct link to ConcurrentLinkedQueue" title="Direct link to ConcurrentLinkedQueue">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+<li>Uses CAS (Compare-And-Swap) for more throughput. Also known as lock free.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="deque-classes">Deque classes<a href="#deque-classes" class="hash-link" aria-label="Direct link to Deque classes" title="Direct link to Deque classes">​</a></h4>
+<ul>
+<li>ArrayDeque - Double ended queue. Backed by array. Can throw ConcurrentModificationException.</li>
+<li>LinkedList - Implements Deque interface.</li>
+<li>LinkedBlockingDeque</li>
+<li>ConcurrentLinkedDeque</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="priorityqueue">PriorityQueue<a href="#priorityqueue" class="hash-link" aria-label="Direct link to PriorityQueue" title="Direct link to PriorityQueue">​</a></h4>
+<ul>
+<li>Elements sorted based on their natural order (or Comparator provided in Constructor).</li>
+<li>Use case - task queues where tasks can have different priorities.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="priorityblockingqueue">PriorityBlockingQueue<a href="#priorityblockingqueue" class="hash-link" aria-label="Direct link to PriorityBlockingQueue" title="Direct link to PriorityBlockingQueue">​</a></h4>
+<ul>
+<li>Thread-safe.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="delayqueue">DelayQueue<a href="#delayqueue" class="hash-link" aria-label="Direct link to DelayQueue" title="Direct link to DelayQueue">​</a></h4>
+<ul>
+<li>Elements added, are available to be removed only after their delay-time is expired.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="synchronousqueue">SynchronousQueue<a href="#synchronousqueue" class="hash-link" aria-label="Direct link to SynchronousQueue" title="Direct link to SynchronousQueue">​</a></h4>
+<ul>
+<li>Holds single elements.</li>
+<li>Blocks for both producer and consumer to arrive.</li>
+<li>Use case - For safe/atomic transfer of objects between threads.</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="equals-and-hashcode">equals and hashCode<a href="#equals-and-hashcode" class="hash-link" aria-label="Direct link to equals and hashCode" title="Direct link to equals and hashCode">​</a></h3>
+<ul>
+<li>equals required for all collections.</li>
+<li>equals and hashCode required for Maps and Sets (which are backed by Maps).</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="collections-class">Collections class<a href="#collections-class" class="hash-link" aria-label="Direct link to Collections class" title="Direct link to Collections class">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="utility-methods">Utility methods<a href="#utility-methods" class="hash-link" aria-label="Direct link to Utility methods" title="Direct link to Utility methods">​</a></h4>
+<ul>
+<li>sort(list, key) - guarantees stable sort</li>
+<li>reverse</li>
+<li>reverseOrder - returns Comparator for reversed order</li>
+<li>shuffle</li>
+<li>rotate(list, distance) - rotates elements by the distance specified</li>
+<li>binarySearch(list, key)<!-- -->
+<ul>
+<li>list should be sorted else can get unpredictable results</li>
+<li>log(n) if list implements RandomAccess, else O(n)</li>
+<li>RandomAccess - Marker interface that says, collection supports fast random access, get(i). Typically backed by arrays.</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="methods-returning-wrapped-instances">Methods returning wrapped instances<a href="#methods-returning-wrapped-instances" class="hash-link" aria-label="Direct link to Methods returning wrapped instances" title="Direct link to Methods returning wrapped instances">​</a></h4>
+<ul>
+<li>empty - emptyList, emptySet, emptyMap etc.</li>
+<li>synchronized - synchronizedList, synchronizedSet, synchronizedMap etc.</li>
+<li>unmodifiable - unmodifiableList, unmodifiableSet, unmodifiableMap etc.</li>
+<li>singleton(t) - singleton (returns set), singletonList, singletonMap etc.</li>
+</ul>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="hierarchy-and-classes">Hierarchy and classes<a href="#hierarchy-and-classes" class="hash-link" aria-label="Direct link to Hierarchy and classes" title="Direct link to Hierarchy and classes">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="collection-hierarchy-2" src="/kb/assets/images/collection-hierarchy-2-7b32bdd96d7a83023fc99514af728a5a.png" width="1026" height="465" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="map-hierarchy-2" src="/kb/assets/images/map-hierarchy-2-47181d3f9685d62d737c3fbc5d6507a8.png" width="1024" height="460" class="img_ev3q"></p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/engilyin/kb/docs/Job/TechInterview/Java/core/collections.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2024-10-03T16:28:54.000Z" itemprop="dateModified">Oct 3, 2024</time></b></span></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/kb/Job/TechInterview/Java/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Java Tech Interview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/kb/Job/TechInterview/Java/core/concurrency"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">concurrency</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#collections" class="table-of-contents__link toc-highlight">Collections</a><ul><li><a href="#resources" class="table-of-contents__link toc-highlight">Resources</a></li><li><a href="#table-of-contents" class="table-of-contents__link toc-highlight">Table of contents</a></li><li><a href="#introduction" class="table-of-contents__link toc-highlight">Introduction</a></li><li><a href="#collection-implementations" class="table-of-contents__link toc-highlight">Collection Implementations</a></li><li><a href="#lists" class="table-of-contents__link toc-highlight">Lists</a></li><li><a href="#sets" class="table-of-contents__link toc-highlight">Sets</a></li><li><a href="#maps" class="table-of-contents__link toc-highlight">Maps</a></li><li><a href="#queues" class="table-of-contents__link toc-highlight">Queues</a></li><li><a href="#equals-and-hashcode" class="table-of-contents__link toc-highlight">equals and hashCode</a></li><li><a href="#collections-class" class="table-of-contents__link toc-highlight">Collections class</a></li><li><a href="#hierarchy-and-classes" class="table-of-contents__link toc-highlight">Hierarchy and classes</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Alex Ilin. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
