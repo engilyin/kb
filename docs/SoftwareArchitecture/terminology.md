@@ -15,7 +15,10 @@ tags:
 
 - `BUSINESS DRIVER` is an internal or external change or
 impact which indicates a reaction from the business.
-This impact is not necessarily negative.
+This impact is not necessarily negative. It includes:
+    - Business context
+    - Functional requirements
+    - Quality Attributes requirements
 
 - `BUSINESS GOAL` represents a high-level statement of
 intent, direction, or desired end state for an organization

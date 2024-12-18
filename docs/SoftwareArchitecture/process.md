@@ -82,3 +82,10 @@ Phases:
    - Asks the quality attribute related questions
    - Documents risks, non-risks, sensitivity points, trade-offs
 
+### Phase 2
+
+With larger group of stakeholders:
+
+- Brainstorm and prioritize scenarios.
+- Analyze architectural approaches
+- Present results
