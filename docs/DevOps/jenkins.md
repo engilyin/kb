@@ -1,6 +1,14 @@
 # Jenkins
 
 
+## Turn off triggering on scan
+
+If you need to re-scan the pipeline to get new branches by default it would triggering all available branches which is not desirable.
+To turn it off you need to add the property strategy `Suppress automatic SCM triggering` and set:
+`For matching branches suppress builds triggering by indexing(continue to honor webhooks)`
+
+![suppress-triggering](images/suppress-triggering.jpg)
+
 ## Call cf command
 
 ```groovy

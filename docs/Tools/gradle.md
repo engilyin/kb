@@ -565,3 +565,11 @@ repositories {
 implementation("$1:$2:$3")
 
 ```
+
+### gradlew created on Windows
+
+You need to set permissions to 777
+
+```
+git update-index --chmod=+x gradlew
+```
