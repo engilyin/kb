@@ -168,7 +168,7 @@ Rack awarnes: Kafka Consumers Replica Fetching (since 2.4+). To improve latency 
 
 ## Commit Strategy
 
-- Auto offset commit behaviour
+- Auto offset commit behavior
 
 `auto.commit.interval.ms=5000` `enable.auto.commit=true`
 
@@ -176,3 +176,11 @@ For Kafka Streams
 props.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.AT_MOST_ONCE);
 
 props.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, 4); // Set the number of stream threads to 4
+
+
+## Windows
+
+- Sliding
+- Tumbling
+- Hopping
+- Session
