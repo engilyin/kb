@@ -1,5 +1,13 @@
 # Docker commands and useful stuff
 
+## Clean up
+
+```
+docker image prune -a
+docker container prune
+docker volume prune
+```
+
 ## Start Docker on Mac (Using minicube)
 
 ### To run
@@ -46,6 +54,59 @@ And
 To uthenticate on the private registry:
 ```
 docker login -u _token -p "$(gcloud auth print-access-token)" https://us.gcr.io
+```
+
+## Run containers from AWS
+
+```
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
+
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/repocode
+
+docker tag cli-java21-jenkins-agent:latest public.ecr.aws/repocode/cli-java21-jenkins-agent:1.0.3
+docker push public.ecr.aws/repocode/cli-java21-jenkins-agent:1.0.3
+
+docker tag public.ecr.aws/repocode/cli-java21-jenkins-agent:1.0.3 public.ecr.aws/repocode/cli-java21-jenkins-agent:latest
+docker push public.ecr.aws/repocode/cli-java21-jenkins-agent:latest
+```
+
+if you need just to enter and check the image:
+
+```
+docker run -it --rm --name agent --entrypoint /bin/sh public.ecr.aws/repocode/cli-java21-jenkins-agent
+```
+
+If you need to work with the private repo use this command to login:
+```
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account-no>.dkr.ecr.us-east-1.amazonaws.com
+```
+
+if you do not have connectivity you can try to use network `host` mode instead of `bridge`
+
+```
+docker run -it --rm --name agent --network host --entrypoint /bin/sh public.ecr.aws/repocode/cli-java21-jenkins-agent
+
+#useful commands
+docker network ls
+docker inspect bridge
+```
+
+### issues
+
+If AWS token is expired try to sync the time
+
+Synchronize the time on the host:
+```
+ntpdate -u pool.ntp.org
+```
+
+## Entry Point
+
+To get image entry point
+
+```
+docker inspect -f '{{.Config.Entrypoint}}' image
 ```
 
 ## Docker file
