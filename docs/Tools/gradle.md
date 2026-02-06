@@ -573,3 +573,19 @@ You need to set permissions to 777
 ```
 git update-index --chmod=+x gradlew
 ```
+
+## Android
+
+If you want gradle to install all required dependencies including SDK and Platform tools add this setting to 
+gradle.properties:
+```
+android.builder.sdkDownload=true
+```
+
+also you need to set `ANDROID_HOME` and `ANDROID_SDK_ROOT`  env var and copy there `licenses/` folder with accepted licenses.
+Also you need to install manually `cmdline-tools` putting its content under `$ANDROID_HOME/cmdline-tools/latest`
+
+::warning:: on Windows you might need to reboot the computer to fully apply the env vars
+
+
+Also it would be useful to have some place for gradle cache setting the `GRADLE_USER_HOME` env var

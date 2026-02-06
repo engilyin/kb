@@ -90,3 +90,27 @@ Add these settings:
         }
     },
 ```
+
+## Archive folders
+
+Archive a folder (include the folder itself) to a .tar.gz at a specific location:
+
+```bash
+tar -czf /path/to/destination/archive-name.tar.gz -C /path/to/source_parent source_folder
+# example:
+tar -czf /backups/project-$(date +%F).tar.gz -C /home/user project
+```
+
+Archive only the contents of a folder (not the top-level folder):
+
+```bash
+tar -czf /path/to/destination/archive-name.tar.gz -C /path/to/source_folder .
+# example:
+tar -czf /backups/project-$(date +%F).tar.gz -C /home/user/project .
+```
+
+If the folder is a Git repository and you want only tracked files (export current HEAD):
+
+```bash
+git -C /path/to/repo archive --format=tar HEAD | gzip > /path/to/destination/project-$(date +%F).tar.gz
+```

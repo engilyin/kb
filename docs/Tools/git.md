@@ -1,4 +1,4 @@
-# Git sheat sheet
+# Git sheet sheet
 
 
 ## To unstage file
@@ -11,7 +11,7 @@ git restore --staged package-lock.json
 ## Aliases
 
 ```shell
-git config --global alias.st state
+git config --global alias.st status
 ```
 
 ## Delete branch 
@@ -27,7 +27,7 @@ git branch -d branchname
 git branch -D branchname
 ```
 
-Remotelly:
+Remotely:
 ```
 git push --delete origin branchname
 ```
@@ -47,6 +47,13 @@ Delete unused feature/ branches
 git branch | grep feature/ | awk '{print $1}' | xargs git branch -d
 ```
 
+## Restore branches
+
+restore the commit using 
+```
+git reflog --all
+git checkout -b recovered-feature e4f5g6h
+```
 
 ## Windows ssh login
 
@@ -76,12 +83,17 @@ git stash pop 0
 git clean -fdx
 ```
 
+Check integrity:
+```
+git fsck --full
+```
+
 
 ## Merging
 
 $ git merge develop_forward -Xrename-threshold=25 -Xignore-space-change
 
-## Troublishooting
+## Troubleshooting
 
 ### SSL issues
 If you have some problems with ssl like this:
@@ -89,7 +101,7 @@ If you have some problems with ssl like this:
 ```
 fatal: unable to access 'https://git.company.com/User_Name/spring-boot-realworld-example-app.git/': SSL certificate problem: unable to get local issuer certificate
 ```
-you cantry to turn off the validation for a while
+you can try to turn off the validation for a while
 
 ```shell
 git config http.sslVerify false
@@ -131,3 +143,51 @@ git push --mirror origin
 ## Merge repos
 
 You can use [script](scripts/merge-repos.sh) to merge multiple repos into single one.
+
+
+## Using `duet`
+
+You can use `duet` for pair programming or simply use it to avoid setting some author name and email for every repo.
+Instead you can have common `.git-authors` file in your home directory. Or you can drop this file into the root of 
+your project to have per project list of authors.
+
+Here is the sample `.git-authors`:
+
+```
+authors:
+  engilyin: Alex Ilin; engilyin
+  oi: Oleksandr Ilin; oleksandr_ilin
+email:
+  domain: engilyin.com
+email_addresses:
+  engilyin: engilyin@gmail.com
+```
+
+## Migrate repo to GitHub
+
+1️⃣ Clone the source repo (everything included)
+
+```shell
+git clone --mirror https://github.com/OLD_OWNER/OLD_REPO.git
+cd OLD_REPO.git
+```
+
+:::note
+ --mirror = full history, all branches, all tags, refs, everything.
+:::
+
+2️⃣ Create a new empty repo on GitHub
+
+Same or different account/org
+
+:::warning
+Do NOT initialize it (no README, no .gitignore)
+:::
+
+3️⃣ Push everything to the new repo
+
+```shell
+git push --mirror https://github.com/NEW_OWNER/NEW_REPO.git
+```
+
+✅ Done. Repo is fully migrated.

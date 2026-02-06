@@ -12,6 +12,15 @@ tags:
 # Testing
 
 
+## Run
+
+If you need to run particular test via gradle:
+```
+gradlew.bat integrationTest --no-daemon --tests "com.company.controllers.MyControllerIntegrationTest.createReport_happyPath_returnsSubmission" --stacktrace
+```
+
+## Mocks
+
 Use this annotation to initialize Mocks instead of `initMocks` call:
 
 ```java showLineNumbers
