@@ -26,3 +26,11 @@ Invoke-WebRequest -Uri 'http://download.mozilla.org/?product=firefox-latest&os=w
 ```
 dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /norestart
 ```
+
+
+## Useful commands
+
+```
+# Convert PNG to Base64
+powershell -NoProfile -Command "[Convert]::ToBase64String([IO.File]::ReadAllBytes('D:\Path\icon.png')) | Out-File -FilePath 'D:\Path\icon.b64' -Encoding ascii
+```

@@ -162,3 +162,20 @@ That would be used to allow access GitHub API on System settings
 ### On the project folder
 
 ????
+
+
+### Troubleshoot issues
+
+Run this script in setting on Jenkins Console:
+
+```
+import org.jenkinsci.plugins.github.config.GitHubServerConfig
+
+def result = GitHubServerConfig.secretFor("https://api.github.com")
+println "Secret present: ${result.isPresent()}"
+if (result.isPresent()) {
+    println "Secret length: ${result.get().getPlainText().length()}"
+} else {
+    println "NO SECRET FOUND - this is your problem"
+}
+```

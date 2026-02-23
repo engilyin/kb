@@ -19,3 +19,10 @@ Get-Process postgres | Measure-Object
 ```
 
 
+## Get `pg_hba` from SQL
+
+It could be especially useful for RDS Aurora where you do not have access to the file itself
+
+```sql
+SELECT * FROM pg_hba_file_rules;
+```
