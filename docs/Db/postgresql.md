@@ -26,3 +26,39 @@ It could be especially useful for RDS Aurora where you do not have access to the
 ```sql
 SELECT * FROM pg_hba_file_rules;
 ```
+
+## All active queries
+
+```sql
+SELECT
+    pid,
+    usename,
+    datname,
+    client_addr,
+    application_name,
+    state,
+    wait_event_type,
+    wait_event,
+    backend_start,
+    query_start,
+    now() - query_start AS runtime,
+    query
+FROM
+    pg_stat_activity
+WHERE
+    state = 'active'
+ORDER BY
+    runtime DESC;
+```
+
+### Gracefully cancel a query (leaves the session open):
+
+```sql
+SELECT pg_cancel_backend(PID);
+```
+
+### Forcefully terminate the entire session:
+
+```sql
+SELECT pg_terminate_backend(PID);
+```

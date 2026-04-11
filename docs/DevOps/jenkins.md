@@ -158,10 +158,63 @@ That would be used to allow access GitHub API on System settings
 - Register new credential as token
 - ??? not sure where is should be used or may be should be properly named. It is used to auth callback call
 
+### Update Secret in Jenkins UI
 
-### On the project folder
+1. Go to **Manage Jenkins → Credentials**
 
-????
+2. Click on **(global)** domain under "Stores scoped to Jenkins"
+
+3. Find **WebHookGitHubText** in the list and click on it
+
+4. Click **Update** on the left sidebar
+
+5. In the **Secret** field, paste your new secret value (generate one with `openssl rand -hex 20` or use any random string like a UUID)
+
+6. Click **Save**
+
+### Generate a new secret
+
+You can generate a secure random secret on your local machine:
+
+```bash
+# Option 1: Using openssl
+openssl rand -hex 20
+
+# Option 2: Using Python
+python3 -c "import secrets; print(secrets.token_hex(20))"
+
+# Option 3: Using Node
+node -e "console.log(require('crypto').randomBytes(20).toString('hex'))"
+```
+
+Copy that value and use it in both:
+- Jenkins credential (step 5 above)
+- GitHub webhook secret field (in your org or repo webhook settings)
+
+### Set it in GitHub Organization-wide
+
+You can set a webhook secret at the **organization level** and it applies to all repos:
+
+1. Go to your GitHub org → `Settings → Webhooks`
+2. Find your Jenkins webhook or create a new one:
+   - **Payload URL**: `https://your-jenkins.com/github-webhook/`
+   - **Content type**: `application/json`
+   - **Secret**: Paste the secret from above
+   - **Which events**: `Just the push event` (or customize)
+   - **Active**: ✓
+
+3. All repos in the org will inherit this webhook automatically
+
+## Or set per-repo with the same secret
+
+If you need different webhooks per repo but want to use the **same secret** for all:
+
+1. Each repo → `Settings → Webhooks → Add webhook`
+2. Use the **exact same secret value** for all repos
+3. Jenkins will validate them all with the single `WebHookGitHubText` credential
+
+The key insight: Jenkins looks up the secret by credential ID (`WebHookGitHubText`), so as long as **all your GitHub webhooks use the identical secret string**, they'll all validate against that one Jenkins credential.
+
 
 
 ### Troubleshoot issues

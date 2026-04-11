@@ -14,6 +14,45 @@ git restore --staged package-lock.json
 git config --global alias.st status
 ```
 
+## Create/Apply patches
+
+You can create the patch from the not committed changes:
+
+```
+git add .
+git diff --cached > changes.patch
+
+# or with binary files
+
+git diff --cached --binary > changes.patch
+
+```
+
+And apply it as easy as:
+
+```
+git apply changes.patch
+```
+
+
+## Revert changes
+
+How to revert changes in the file:
+
+```shell
+git restore <file>
+
+git checkout -- <file>
+```
+
+
+I did git pull --rebase and it stuck with some conflicts. How can I just overwrite the current state with the latest from the remote origin main?
+```shell
+git rebase --abort
+git fetch origin
+git reset --hard origin/main
+```
+
 ## Delete branch 
 
 Locally:
@@ -47,6 +86,13 @@ Delete unused feature/ branches
 git branch | grep feature/ | awk '{print $1}' | xargs git branch -d
 ```
 
+Delete all worktrees
+```
+git worktree list | awk '{print $1}' | xargs -n1 git worktree remove --force
+
+git worktree list | grep US-05- | awk '{print $1}' | xargs -n1 git worktree remove --force
+```
+
 ## Restore branches
 
 restore the commit using 
@@ -69,6 +115,38 @@ git config user.name "My Name"
 git config user.email "my@email.com"
 ```
 
+## Tell GCM to remember which account to use
+
+To set a default account for a particular remote you can simply set the following Git configuration:
+
+```shell
+git config --global credential.<URL>.username <USERNAME>
+```
+
+..where `<URL>` is the remote URL and `<USERNAME>` is the account you wish to have as the default. For example, for `github.com` and the user `alice`, you would run:
+
+```shell
+git config --global credential.https://github.com.username alice
+```
+
+If you wish to set a user for a specific repository or remote URL, you can include the account name in the remote URL. If you're using HTTPS remotes, you can include the account name in the URL by inserting it before the @ sign in the domain name.
+
+For example, if you want to always use the `alice` account for the `mona/test` GitHub repository, you can clone it using the `alice` account by running:
+
+```shell
+git clone https://alice@github.com/mona/test
+```
+
+To update an existing clone, you can run git remote set-url to update the URL:
+
+```shell
+git remote set-url origin https://alice@github.com/mona/test
+``` 
+If your account name includes an `@` then remember to escape this character using `%40`: https://alice%40contoso.com@example.com/test.
+
+
+See original at https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#setting-a-default-account-for-a-remote-url
+
 ## Stash
 
 ```shell
@@ -87,6 +165,20 @@ Check integrity:
 ```
 git fsck --full
 ```
+
+
+## Worktrees
+
+```shell
+git worktree add -b develop_forward ../develop_forward origin/develop_forward
+
+git worktree list
+
+git worktree remove ../develop_forward
+git worktree remove ../develop_forward --force
+```
+
+
 
 
 ## Merging
