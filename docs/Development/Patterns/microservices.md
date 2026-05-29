@@ -1,8 +1,8 @@
 # Microservice Patterns
 
-## CORS
+## CQRS
 
-## Aggregator pattern
+## Aggregator
 
 ## Circuit Breaker
 
@@ -12,7 +12,7 @@
 
 ## Backend for Frontends
 
-## Chained pattern
+## Chained
 
 ## Database per Service
 
@@ -20,6 +20,14 @@
 
 ## Service Registry
 
-## Saga pattern
+## Saga
 
-## Sidecar pattern
+## Sidecar
+
+## Ambassador
+
+## Leader Election
+
+## Sharding
+
+## Pub/Sub

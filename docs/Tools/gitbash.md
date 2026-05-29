@@ -113,4 +113,20 @@ If the folder is a Git repository and you want only tracked files (export curren
 
 ```bash
 git -C /path/to/repo archive --format=tar HEAD | gzip > /path/to/destination/project-$(date +%F).tar.gz
+``
+
+## JSON files
+
+### Convert JSON to CSV
+
+```bash
+jq -r '(.[0] | keys_unsorted) as $keys | ($keys | @csv), (.[] | [ .[$keys[]] ] | @csv)' file.json > out.csv
+```
+
+### List entries in JSON file which fields is not one of the specified values
+
+JSON array (keep objects whose type is NOT one of the values "a","b","c"):
+
+```bash
+jq '[ .[] | select( .type as $t | ["a","b","c"] | index($t) | not ) ]' input.json
 ```
