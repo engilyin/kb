@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-SystemDesign/real-time-collaborative-editor" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.5.2">
+<title data-rh="true">Real-Time Collaborative Editor: System Design | Alex Ilin Knowledge Base</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://engilyin.github.com/kb/SystemDesign/real-time-collaborative-editor"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Real-Time Collaborative Editor: System Design | Alex Ilin Knowledge Base"><meta data-rh="true" name="description" content="Interview question: Design a real-time collaborative editor (like Google Docs)."><meta data-rh="true" property="og:description" content="Interview question: Design a real-time collaborative editor (like Google Docs)."><link data-rh="true" rel="icon" href="/kb/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://engilyin.github.com/kb/SystemDesign/real-time-collaborative-editor"><link data-rh="true" rel="alternate" href="https://engilyin.github.com/kb/SystemDesign/real-time-collaborative-editor" hreflang="en"><link data-rh="true" rel="alternate" href="https://engilyin.github.com/kb/SystemDesign/real-time-collaborative-editor" hreflang="x-default"><link rel="stylesheet" href="/kb/assets/css/styles.c22c4916.css">
+<script src="/kb/assets/js/runtime~main.ed86acb8.js" defer="defer"></script>
+<script src="/kb/assets/js/main.65a73fed.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard" data-theme="light">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();null!==e?t(e):window.matchMedia("(prefers-color-scheme: dark)").matches?t("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,t("light"))}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/kb/"><div class="navbar__logo"><img src="/kb/img/logo.jpg" alt="Alex Ilin KB Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/kb/img/logo.jpg" alt="Alex Ilin KB Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Alex Ilin Knowledge Base</b></a></div><div class="navbar__items navbar__items--right"><div class="navbarSearchContainer_Bca1"><div class="dsla-search-wrapper"><div class="dsla-search-field" data-tags="default,docs-default-current"></div></div></div><a href="https://github.com/engilyin/kb" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kb/">Alex Ilin Knowledge Base</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/kb/AI/basics">AI</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/kb/Cloud/AWS/">Cloud</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/databases">Databases</a><button aria-label="Expand sidebar category &#x27;Databases&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/devops">DevOps</a><button aria-label="Expand sidebar category &#x27;DevOps&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/development">Development</a><button aria-label="Expand sidebar category &#x27;Development&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/job">Job</a><button aria-label="Expand sidebar category &#x27;Job&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/kb/Network/apache">Network</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/sre">SRE</a><button aria-label="Expand sidebar category &#x27;SRE&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/software-architecture">Software Architecture</a><button aria-label="Expand sidebar category &#x27;Software Architecture&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/kb/SystemDesign/chat-system">SystemDesign</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/SystemDesign/chat-system">Chat System Design</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/kb/SystemDesign/content-history-and-versioning">Content History and Versioning: System Design</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/kb/SystemDesign/real-time-collaborative-editor">Real-Time Collaborative Editor: System Design</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" href="/kb/category/tools">Tools</a><button aria-label="Expand sidebar category &#x27;Tools&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_PEFL"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/kb/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">SystemDesign</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Real-Time Collaborative Editor: System Design</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Real-Time Collaborative Editor: System Design</h1></header>
+<blockquote>
+<p><strong>Interview question:</strong> Design a real-time collaborative editor (like Google Docs).
+Focus: Conflict resolution (OT vs. CRDT), cursor presence, offline support.</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview">​</a></h2>
+<p>Real-time collaboration means multiple users edit the <strong>same shared state simultaneously</strong> and see each other&#x27;s changes with low latency. The shared state could be a text document, a canvas, a spreadsheet, a game world, or a video conference.</p>
+<p>The challenge is deceptively simple to state: <em>if two people change the same thing at the same time, whose change wins — and how do you make sure nobody loses work?</em></p>
+<p>The answer depends heavily on the data model. Text has very different constraints than a pixel canvas, which differs from a physics simulation.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-core-problem-concurrent-edits">The Core Problem: Concurrent Edits<a href="#the-core-problem-concurrent-edits" class="hash-link" aria-label="Direct link to The Core Problem: Concurrent Edits" title="Direct link to The Core Problem: Concurrent Edits">​</a></h2>
+<p>Imagine two users, Alice and Bob, both reading the same document state <code>&quot;Hello&quot;</code>:</p>
+<ul>
+<li>Alice inserts <code>&quot;!&quot;</code> at position 5 → <code>&quot;Hello!&quot;</code></li>
+<li>Bob deletes character at position 5 → <code>&quot;Hell&quot;</code></li>
+</ul>
+<p>If you naively apply both operations in sequence, the result is wrong. The <em>positions</em> Alice and Bob used were relative to the <strong>same original state</strong>, but the operations transform the state differently.</p>
+<!-- -->
+<p>The two fundamental properties any solution must guarantee:</p>
+<table><thead><tr><th>Property</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>Convergence</strong></td><td>All replicas eventually reach the same state</td></tr><tr><td><strong>Intent Preservation</strong></td><td>Each user&#x27;s edit does what they intended</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conflict-resolution-strategies">Conflict Resolution Strategies<a href="#conflict-resolution-strategies" class="hash-link" aria-label="Direct link to Conflict Resolution Strategies" title="Direct link to Conflict Resolution Strategies">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-last-write-wins-lww">1. Last-Write-Wins (LWW)<a href="#1-last-write-wins-lww" class="hash-link" aria-label="Direct link to 1. Last-Write-Wins (LWW)" title="Direct link to 1. Last-Write-Wins (LWW)">​</a></h3>
+<p>The simplest approach: every write carries a timestamp. The latest timestamp wins.</p>
+<p><strong>How it works:</strong> Each operation is tagged with a wall-clock or logical timestamp. Conflicts are resolved by discarding the operation with the older timestamp.</p>
+<p><strong>Used by:</strong> Redis, Cassandra (optional), simple presence systems.</p>
+<p><strong>Pros:</strong> Trivial to implement, no coordination needed.<br>
+<strong>Cons:</strong> Silently discards work. Alice&#x27;s edit disappears with no warning. Unacceptable for text editing, acceptable for cursor positions.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-operational-transformation-ot">2. Operational Transformation (OT)<a href="#2-operational-transformation-ot" class="hash-link" aria-label="Direct link to 2. Operational Transformation (OT)" title="Direct link to 2. Operational Transformation (OT)">​</a></h3>
+<p>OT was invented in 1989 and powers <strong>Google Docs</strong>.</p>
+<p><strong>Core idea:</strong> Before applying a remote operation, <em>transform</em> it against all operations that happened concurrently, so its intent is preserved in the updated context.</p>
+<!-- -->
+<p><strong>The transform function</strong> must handle every pair of operation types:</p>
+<ul>
+<li>insert vs insert</li>
+<li>insert vs delete</li>
+<li>delete vs delete</li>
+<li>... and so on for rich text (formatting, annotations, etc.)</li>
+</ul>
+<p><strong>OT in a centralized system (Jupiter/Google Docs model):</strong></p>
+<!-- -->
+<p><strong>Pros:</strong> Well-understood, battle-tested at Google scale, works perfectly with a central server.<br>
+<strong>Cons:</strong> The transform functions are notoriously hard to get right for complex types (rich text, tables). Peer-to-peer OT requires a <em>total order</em> protocol, which is very complex.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-conflict-free-replicated-data-types-crdt">3. Conflict-Free Replicated Data Types (CRDT)<a href="#3-conflict-free-replicated-data-types-crdt" class="hash-link" aria-label="Direct link to 3. Conflict-Free Replicated Data Types (CRDT)" title="Direct link to 3. Conflict-Free Replicated Data Types (CRDT)">​</a></h3>
+<p>CRDTs are data structures with a mathematically guaranteed merge operation. You don&#x27;t need a central server to resolve conflicts — any two replicas can be merged in any order and produce the same result.</p>
+<p><strong>Two families:</strong></p>
+<table><thead><tr><th>Type</th><th>How it works</th><th>Example</th></tr></thead><tbody><tr><td><strong>State-based (CvRDT)</strong></td><td>Replicas exchange their full state; merge = join (least upper bound)</td><td>G-Counter, OR-Set</td></tr><tr><td><strong>Op-based (CmRDT)</strong></td><td>Replicas exchange operations; ops are commutative</td><td>RGA, Logoot, Yjs</td></tr></tbody></table>
+<p><strong>Text CRDT example (RGA — Replicated Growable Array):</strong></p>
+<p>Every character gets a globally unique ID (site ID + logical clock). Characters are ordered by their IDs, not by position. Insertions are always relative to a <em>specific character&#x27;s ID</em>, not an integer index.</p>
+<!-- -->
+<p>Notice Bob&#x27;s delete uses the stable ID <code>A5</code>, not a shifting integer position. No transform needed.</p>
+<p><strong>Used by:</strong> Figma, Linear, Notion (partially), Automerge, Yjs.</p>
+<p><strong>Pros:</strong> Works fully offline and peer-to-peer. No server required for convergence. Naturally handles network partitions.<br>
+<strong>Cons:</strong> Higher memory overhead (tombstones accumulate). More complex to implement correctly for rich text with formatting spans.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="4-differential-synchronization">4. Differential Synchronization<a href="#4-differential-synchronization" class="hash-link" aria-label="Direct link to 4. Differential Synchronization" title="Direct link to 4. Differential Synchronization">​</a></h3>
+<p>Invented by Neil Fraser (Google). Used in early versions of Google Wave and some simpler sync systems.</p>
+<p><strong>How it works:</strong> Each client keeps a <em>shadow copy</em> of what it thinks the server has. Periodically, it diffs its local copy against the shadow, sends the patch, and updates the shadow. The server applies patches against its shadow, then diffs with its current state.</p>
+<!-- -->
+<p><strong>Pros:</strong> Simple to reason about, works with any diff algorithm, no special data structure needed.<br>
+<strong>Cons:</strong> Requires reliable ordered delivery. Lossy diffs (e.g., move vs delete+insert) can lose intent. Not suitable for complex concurrent scenarios.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="5-event-sourcing--append-only-log">5. Event Sourcing / Append-Only Log<a href="#5-event-sourcing--append-only-log" class="hash-link" aria-label="Direct link to 5. Event Sourcing / Append-Only Log" title="Direct link to 5. Event Sourcing / Append-Only Log">​</a></h3>
+<p>Instead of sharing state directly, share <em>events</em>. Every change is an immutable event appended to a log. The current state is always derived by replaying the log.</p>
+<!-- -->
+<p>The server is the total-order authority for the log. Clients consume the log and rebuild state. Conflicts are defined by the ordering in the log.</p>
+<p><strong>Used by:</strong> Apache Kafka-backed systems, collaborative game backends, financial ledgers.</p>
+<p><strong>Pros:</strong> Full audit trail, replay, time-travel debugging, easy to add new subscribers.<br>
+<strong>Cons:</strong> Log grows unboundedly without compaction. State rebuild from scratch is expensive; snapshots needed. The server still decides ordering — it&#x27;s not truly peer-to-peer.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="6-client-side-prediction--server-reconciliation-game-engines">6. Client-Side Prediction + Server Reconciliation (Game Engines)<a href="#6-client-side-prediction--server-reconciliation-game-engines" class="hash-link" aria-label="Direct link to 6. Client-Side Prediction + Server Reconciliation (Game Engines)" title="Direct link to 6. Client-Side Prediction + Server Reconciliation (Game Engines)">​</a></h3>
+<p>Used in real-time games like <strong>Counter-Strike</strong>. Not for text, but the same principles apply to any real-time collaborative simulation.</p>
+<p><strong>The challenge:</strong> A shooter firing at 60 fps cannot wait 100ms for server confirmation before rendering the shot. The game must <em>feel</em> instant.</p>
+<!-- -->
+<p><strong>Key techniques:</strong></p>
+<ul>
+<li><strong>Client-side prediction:</strong> Apply input locally immediately, don&#x27;t wait for server.</li>
+<li><strong>Lag compensation:</strong> Server rewinds history to the client&#x27;s timestamp before validating.</li>
+<li><strong>Entity interpolation:</strong> Render other players slightly in the past (e.g., 100ms behind) to smooth movement.</li>
+<li><strong>Server reconciliation:</strong> Client re-simulates all unacknowledged inputs on top of the server&#x27;s authoritative state.</li>
+</ul>
+<p><strong>Used by:</strong> Valve Source Engine (CS<!-- -->:GO<!-- -->, CS2), Unreal Engine, Unity Netcode.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="strategy-comparison">Strategy Comparison<a href="#strategy-comparison" class="hash-link" aria-label="Direct link to Strategy Comparison" title="Direct link to Strategy Comparison">​</a></h3>
+<table><thead><tr><th>Strategy</th><th>Convergence</th><th>Offline</th><th>P2P</th><th>Complexity</th><th>Best For</th></tr></thead><tbody><tr><td>Last-Write-Wins</td><td>✅</td><td>✅</td><td>✅</td><td>Low</td><td>Presence, cursors</td></tr><tr><td>OT (centralized)</td><td>✅</td><td>Limited</td><td>❌</td><td>Medium</td><td>Text docs (Google Docs)</td></tr><tr><td>CRDT</td><td>✅</td><td>✅</td><td>✅</td><td>High</td><td>Offline-first, P2P</td></tr><tr><td>Differential Sync</td><td>✅</td><td>❌</td><td>❌</td><td>Low</td><td>Simple sync</td></tr><tr><td>Event Sourcing</td><td>✅ (server order)</td><td>Limited</td><td>❌</td><td>Medium</td><td>Audit trail, replay</td></tr><tr><td>Client Prediction</td><td>Eventual</td><td>❌</td><td>❌</td><td>High</td><td>Real-time games</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="presence-and-awareness">Presence and Awareness<a href="#presence-and-awareness" class="hash-link" aria-label="Direct link to Presence and Awareness" title="Direct link to Presence and Awareness">​</a></h2>
+<p>Knowing <em>who else is editing</em> and <em>where their cursor is</em> is as important as conflict resolution for collaborative feel.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cursor-and-selection-sharing">Cursor and Selection Sharing<a href="#cursor-and-selection-sharing" class="hash-link" aria-label="Direct link to Cursor and Selection Sharing" title="Direct link to Cursor and Selection Sharing">​</a></h3>
+<p>Cursors are <strong>ephemeral</strong> — they don&#x27;t need the same guarantees as document content. LWW is fine.</p>
+<!-- -->
+<p><strong>Practical details:</strong></p>
+<ul>
+<li>Cursor positions must be expressed in <strong>stable coordinates</strong> (CRDT character IDs, or OT-transformed positions), not raw integer offsets that shift when others type.</li>
+<li>Selection ranges need a start ID and end ID.</li>
+<li>Throttle cursor broadcasts to ~50ms to avoid flooding.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="awareness-protocol-yjs-approach">Awareness Protocol (Yjs approach)<a href="#awareness-protocol-yjs-approach" class="hash-link" aria-label="Direct link to Awareness Protocol (Yjs approach)" title="Direct link to Awareness Protocol (Yjs approach)">​</a></h3>
+<p>Yjs uses a dedicated <em>Awareness</em> layer separate from the document CRDT. It propagates ephemeral state (cursor, username, color, online status) with heartbeat-based TTL. If a heartbeat stops, the peer is assumed gone.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="offline-support">Offline Support<a href="#offline-support" class="hash-link" aria-label="Direct link to Offline Support" title="Direct link to Offline Support">​</a></h2>
+<p>Offline support means users can keep editing without network connectivity, and changes merge when reconnected.</p>
+<!-- -->
+<p><strong>Requirements for true offline support:</strong></p>
+<ul>
+<li>The data structure must be <strong>mergeable without a central coordinator</strong> (CRDT wins here; OT requires careful queuing).</li>
+<li>Local ops must be persisted (IndexedDB in browsers, SQLite on mobile).</li>
+<li>On reconnect, the client sends its log of unacknowledged operations, and the server (or peer) merges them.</li>
+<li>The UI must distinguish between <em>locally saved</em> and <em>synced to server</em>.</li>
+</ul>
+<p><strong>Google Docs offline mode</strong> stores a bounded recent history but reconnects by replaying OT operations — it relies on the central server for final ordering.</p>
+<p><strong>Figma offline mode</strong> relies on CRDTs (via their custom multiplayer engine) and can merge arbitrary diverged states.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="transport-and-network-layer">Transport and Network Layer<a href="#transport-and-network-layer" class="hash-link" aria-label="Direct link to Transport and Network Layer" title="Direct link to Transport and Network Layer">​</a></h2>
+<p>The choice of transport affects latency, battery life, and scalability.</p>
+<table><thead><tr><th>Transport</th><th>Latency</th><th>Server Push</th><th>Best For</th></tr></thead><tbody><tr><td><strong>WebSocket</strong></td><td>~10–30ms</td><td>✅</td><td>Text editing, presence</td></tr><tr><td><strong>WebRTC DataChannel</strong></td><td>~5–15ms P2P</td><td>✅ (P2P)</td><td>Games, P2P collaboration</td></tr><tr><td><strong>Server-Sent Events</strong></td><td>~30ms</td><td>One-way</td><td>Read-heavy dashboards</td></tr><tr><td><strong>HTTP long polling</strong></td><td>~100ms</td><td>Simulated</td><td>Legacy fallback</td></tr></tbody></table>
+<p>For a collaborative document editor, <strong>WebSocket</strong> is standard. For a game or low-latency drawing tool, <strong>WebRTC</strong> (possibly via a Selective Forwarding Unit) gives the best latency.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="selective-forwarding-unit-sfu--how-zoom-handles-video">Selective Forwarding Unit (SFU) — How Zoom Handles Video<a href="#selective-forwarding-unit-sfu--how-zoom-handles-video" class="hash-link" aria-label="Direct link to Selective Forwarding Unit (SFU) — How Zoom Handles Video" title="Direct link to Selective Forwarding Unit (SFU) — How Zoom Handles Video">​</a></h3>
+<p>Zoom Video handles thousands of simultaneous video streams using an <strong>SFU architecture</strong>:</p>
+<!-- -->
+<p>The SFU forwards encoded streams without decoding — CPU cost is O(n) not O(n²). Simulcast allows each sender to send 3 quality tiers; the SFU picks the right tier per receiver based on bandwidth.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="real-world-examples">Real-World Examples<a href="#real-world-examples" class="hash-link" aria-label="Direct link to Real-World Examples" title="Direct link to Real-World Examples">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="google-docs--ot-at-scale">Google Docs — OT at Scale<a href="#google-docs--ot-at-scale" class="hash-link" aria-label="Direct link to Google Docs — OT at Scale" title="Direct link to Google Docs — OT at Scale">​</a></h3>
+<p>Google Docs uses a <strong>centralized OT</strong> model (derived from the Jupiter protocol). The server is the single source of truth for operation ordering.</p>
+<ul>
+<li>Every document has a <em>revision counter</em>.</li>
+<li>Clients send ops tagged with the revision they were based on.</li>
+<li>The server transforms incoming ops against all ops that arrived since that revision, applies them, increments the revision, and broadcasts the transformed op to all clients.</li>
+<li>Rich-text changes (bold, headers) are modeled as additional operation types with their own transform rules.</li>
+<li>Presence (cursor, name, color) is managed via a separate presence service.</li>
+</ul>
+<p><strong>Why not CRDT?</strong> Google Docs predates mature CRDT libraries. OT on a single server is simpler to reason about than distributed CRDT. Migrating 3 billion documents is also a significant constraint.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="counter-strike--client-prediction--lag-compensation">Counter-Strike — Client Prediction + Lag Compensation<a href="#counter-strike--client-prediction--lag-compensation" class="hash-link" aria-label="Direct link to Counter-Strike — Client Prediction + Lag Compensation" title="Direct link to Counter-Strike — Client Prediction + Lag Compensation">​</a></h3>
+<p>CS<!-- -->:GO<!-- --> / CS2 runs at <strong>64 or 128 ticks per second</strong> (16ms or 8ms server updates). Every player is technically looking at a slightly different, slightly delayed view of the game world.</p>
+<ul>
+<li>The client predicts its own movement instantly.</li>
+<li>The server validates shots by rewinding the game state to the shooter&#x27;s client time, checking if the target was actually in the hit position at that moment.</li>
+<li>This makes the game feel responsive even at 80ms ping, at the cost of occasionally letting bullets hit targets that have already moved (in absolute time).</li>
+</ul>
+<p><strong>Lesson for collaborative tools:</strong> Optimistic local application + authoritative server reconciliation is a broadly applicable pattern, not just for games.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="pivotal-tracker--simple-collaborative-backlog">Pivotal Tracker — Simple Collaborative Backlog<a href="#pivotal-tracker--simple-collaborative-backlog" class="hash-link" aria-label="Direct link to Pivotal Tracker — Simple Collaborative Backlog" title="Direct link to Pivotal Tracker — Simple Collaborative Backlog">​</a></h3>
+<p>Pivotal Tracker (now retired) used a much simpler model because stories in a backlog are naturally <strong>coarse-grained</strong> discrete objects.</p>
+<ul>
+<li>Each story card is an independent entity with a version number.</li>
+<li>Concurrent edits to the <em>same field</em> of the <em>same card</em> were rare and handled by LWW with a visible &quot;someone else changed this&quot; notification.</li>
+<li>Moving stories between columns used server-authoritative ordering.</li>
+<li>No OT or CRDT needed — the domain made conflicts unlikely.</li>
+</ul>
+<p><strong>Lesson:</strong> Choose the simplest conflict strategy that fits your domain. Not every collaborative tool needs OT or CRDT.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="zoom-whiteboard--what-not-to-do">Zoom Whiteboard — What Not to Do<a href="#zoom-whiteboard--what-not-to-do" class="hash-link" aria-label="Direct link to Zoom Whiteboard — What Not to Do" title="Direct link to Zoom Whiteboard — What Not to Do">​</a></h3>
+<p>Zoom Whiteboard is notoriously slow and laggy. The main issues:</p>
+<ul>
+<li><strong>Operations are round-tripped through the server before rendering locally</strong> — no client-side prediction. You draw a line and see it appear ~300ms later.</li>
+<li><strong>No offline support</strong> — losing connection loses your work.</li>
+<li><strong>Shapes are serialized through a slow pipeline</strong>, causing visible lag even on fast connections.</li>
+</ul>
+<p><strong>Lesson:</strong> For anything that involves freehand drawing or real-time pointer tracking, you <em>must</em> apply locally first and sync asynchronously. Waiting for server acknowledgment before rendering is a fundamental UX failure.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="system-design-collaborative-drawing-tool">System Design: Collaborative Drawing Tool<a href="#system-design-collaborative-drawing-tool" class="hash-link" aria-label="Direct link to System Design: Collaborative Drawing Tool" title="Direct link to System Design: Collaborative Drawing Tool">​</a></h2>
+<p><em>Scenario: Many users drawing on a shared infinite canvas (like draw.io, Excalidraw, or Miro).</em></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="data-model">Data Model<a href="#data-model" class="hash-link" aria-label="Direct link to Data Model" title="Direct link to Data Model">​</a></h3>
+<p>The canvas state is a <strong>list of shapes</strong> (rectangles, lines, paths, text boxes), each with:</p>
+<ul>
+<li>A globally unique ID (UUID)</li>
+<li>An owner + last-modifier</li>
+<li>Geometric properties (x, y, width, height, path data)</li>
+<li>Z-order (layer index)</li>
+</ul>
+<p>Shapes are independent — concurrent edits to <em>different shapes</em> never conflict. Concurrent edits to the <em>same shape</em> are rare and can be handled with per-shape versioning.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="conflict-strategy">Conflict Strategy<a href="#conflict-strategy" class="hash-link" aria-label="Direct link to Conflict Strategy" title="Direct link to Conflict Strategy">​</a></h3>
+<p>Use <strong>CRDT-inspired per-object LWW with vector clocks</strong>:</p>
+<ul>
+<li>Each shape has a <code>version</code> vector clock <code>{siteId: counter}</code>.</li>
+<li>Concurrent moves of the same shape: LWW wins by wall clock + site ID tiebreak.</li>
+<li>Concurrent delete + move: delete wins (treat delete as tombstone).</li>
+<li>Drawing new shapes: never conflicts (new UUIDs).</li>
+</ul>
+<p>Freehand strokes are append-only — each stroke point is an event appended to the shape&#x27;s point log.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="architecture">Architecture<a href="#architecture" class="hash-link" aria-label="Direct link to Architecture" title="Direct link to Architecture">​</a></h3>
+<!-- -->
+<p><strong>Key decisions:</strong></p>
+<ol>
+<li><strong>Optimistic rendering</strong> — shapes appear on your canvas immediately, sync happens asynchronously.</li>
+<li><strong>Cursor positions</strong> broadcast at 50ms throttle via a separate presence channel, using LWW.</li>
+<li><strong>Snapshots</strong> every N minutes to avoid replaying the full event log on join.</li>
+<li><strong>Infinite canvas</strong> uses spatial partitioning — load only shapes in the current viewport.</li>
+<li><strong>Selection locking</strong> — optionally soft-lock a shape while you&#x27;re dragging it (show other users &quot;Alice is moving this&quot;).</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="handling-freehand-strokes">Handling Freehand Strokes<a href="#handling-freehand-strokes" class="hash-link" aria-label="Direct link to Handling Freehand Strokes" title="Direct link to Handling Freehand Strokes">​</a></h3>
+<p>Freehand strokes need special treatment because they generate 60+ events per second:</p>
+<!-- -->
+<p>Points are batched and compressed (delta encoding, Ramer–Douglas–Peucker simplification). Only the final stroke is persisted; intermediate points are ephemeral.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="system-design-collaborative-document-editor">System Design: Collaborative Document Editor<a href="#system-design-collaborative-document-editor" class="hash-link" aria-label="Direct link to System Design: Collaborative Document Editor" title="Direct link to System Design: Collaborative Document Editor">​</a></h2>
+<p><em>Scenario: A Confluence-like wiki where multiple users edit the same article simultaneously and see each other&#x27;s changes in real time.</em></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="data-model-1">Data Model<a href="#data-model-1" class="hash-link" aria-label="Direct link to Data Model" title="Direct link to Data Model">​</a></h3>
+<p>A rich-text document is modeled as a <strong>tree of nodes</strong>: paragraphs, headings, lists, code blocks, tables. Each node is identified by a stable ID.</p>
+<!-- -->
+<ul>
+<li><strong>Block-level structure</strong> (node order, nesting) uses a <strong>sequence CRDT</strong> (e.g., Yjs <code>Y.Array</code>).</li>
+<li><strong>Inline text</strong> within each block uses a <strong>text CRDT</strong> (e.g., Yjs <code>Y.Text</code> backed by RGA).</li>
+<li><strong>Formatting</strong> (bold, italic, links) uses character-level attributes stored as CRDT maps.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="architecture-1">Architecture<a href="#architecture-1" class="hash-link" aria-label="Direct link to Architecture" title="Direct link to Architecture">​</a></h3>
+<!-- -->
+<p><strong>Component responsibilities:</strong></p>
+<table><thead><tr><th>Component</th><th>Role</th></tr></thead><tbody><tr><td><strong>Yjs</strong> (client)</td><td>CRDT engine — tracks document state, merges updates</td></tr><tr><td><strong>ProseMirror</strong> (client)</td><td>Rich-text editor UI — binds to Yjs state</td></tr><tr><td><strong>y-websocket / Hocuspocus</strong></td><td>Server-side Yjs sync provider — routes updates, persists state</td></tr><tr><td><strong>Awareness (Yjs)</strong></td><td>Ephemeral cursor/presence state with heartbeat TTL</td></tr><tr><td><strong>Snapshot Store</strong></td><td>Periodic binary snapshots of Yjs doc state (avoid full replay)</td></tr><tr><td><strong>Postgres</strong></td><td>Stores document metadata, access control, version history</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="sync-flow">Sync Flow<a href="#sync-flow" class="hash-link" aria-label="Direct link to Sync Flow" title="Direct link to Sync Flow">​</a></h3>
+<!-- -->
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="offline--reconnect">Offline + Reconnect<a href="#offline--reconnect" class="hash-link" aria-label="Direct link to Offline + Reconnect" title="Direct link to Offline + Reconnect">​</a></h3>
+<ol>
+<li>While offline, all edits accumulate in the local Yjs document (persisted to IndexedDB).</li>
+<li>On reconnect, client sends its <strong>state vector</strong> — a compact summary of what updates it has.</li>
+<li>Server responds with only the <strong>missing updates</strong> since that vector.</li>
+<li>Client merges in all remote changes. Since this is CRDT, the merge is deterministic and correct regardless of how long the client was offline.</li>
+<li>Conflicts (e.g., both users restructured the same paragraph) are visible in the document — no silent data loss.</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="multi-user-cursor-rendering">Multi-User Cursor Rendering<a href="#multi-user-cursor-rendering" class="hash-link" aria-label="Direct link to Multi-User Cursor Rendering" title="Direct link to Multi-User Cursor Rendering">​</a></h3>
+<!-- -->
+<p>Cursors reference <strong>CRDT character IDs</strong>, not integer positions. The editor translates IDs to screen positions using the current document view.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="putting-it-all-together">Putting It All Together<a href="#putting-it-all-together" class="hash-link" aria-label="Direct link to Putting It All Together" title="Direct link to Putting It All Together">​</a></h2>
+<!-- -->
+<p><strong>Scaling considerations:</strong></p>
+<ul>
+<li><strong>Collab Sync Service</strong> must be sticky per document (all editors of doc X connect to the same node, or nodes share state via Redis/Kafka).</li>
+<li><strong>Presence</strong> scales horizontally via Redis Pub/Sub — O(1) broadcast per document channel.</li>
+<li><strong>Snapshot Worker</strong> runs periodically (e.g., every 5 minutes of inactivity) to compact the CRDT log.</li>
+<li><strong>Read replicas</strong> serve document loads; writes go to primary.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="interview-cheat-sheet">Interview Cheat Sheet<a href="#interview-cheat-sheet" class="hash-link" aria-label="Direct link to Interview Cheat Sheet" title="Direct link to Interview Cheat Sheet">​</a></h2>
+<table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody><tr><td>OT vs CRDT for text?</td><td>OT simpler with central server; CRDT better for offline/P2P</td></tr><tr><td>How do cursors stay accurate?</td><td>Use stable character IDs, not integer positions</td></tr><tr><td>How does offline sync work?</td><td>Queue ops locally, replay on reconnect; CRDT merges cleanly</td></tr><tr><td>How to scale WebSocket connections?</td><td>Sticky sessions per doc; Redis Pub/Sub for cross-node broadcast</td></tr><tr><td>Why does Zoom Whiteboard feel slow?</td><td>No client-side prediction — waits for server before rendering</td></tr><tr><td>How does CS<!-- -->:GO<!-- --> feel responsive at 80ms ping?</td><td>Client-side prediction + server reconciliation</td></tr><tr><td>When is LWW enough?</td><td>For ephemeral state: cursors, presence, non-critical overwrites</td></tr><tr><td>What library implements CRDT for browsers?</td><td>Yjs (most popular), Automerge</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="further-reading-and-watching">Further Reading and Watching<a href="#further-reading-and-watching" class="hash-link" aria-label="Direct link to Further Reading and Watching" title="Direct link to Further Reading and Watching">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="must-watch-videos">Must-Watch Videos<a href="#must-watch-videos" class="hash-link" aria-label="Direct link to Must-Watch Videos" title="Direct link to Must-Watch Videos">​</a></h3>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=yCcWpzY8dIA" target="_blank" rel="noopener noreferrer">Conflict Resolution in Collaborative Editing — Martin Kleppmann (Strange Loop 2019)</a></strong> — The best single talk on OT vs. CRDT with clear visual examples.</li>
+<li><strong><a href="https://www.youtube.com/watch?v=x7drE24geUw" target="_blank" rel="noopener noreferrer">CRDTs: The Hard Parts — Martin Kleppmann (Hydra 2020)</a></strong> — Deep dive into where CRDTs get tricky (move, undo, rich text).</li>
+<li><strong><a href="https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking" target="_blank" rel="noopener noreferrer">Source Multiplayer Networking — Valve Developer Wiki (video)</a></strong> — The definitive resource on lag compensation and client prediction.</li>
+<li><strong><a href="https://www.youtube.com/watch?v=LA3VgWHOhL8" target="_blank" rel="noopener noreferrer">Building Figma&#x27;s Multiplayer — Figma Engineering Blog (talk)</a></strong> — How Figma rebuilt its sync engine around CRDTs.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="essential-articles">Essential Articles<a href="#essential-articles" class="hash-link" aria-label="Direct link to Essential Articles" title="Direct link to Essential Articles">​</a></h3>
+<ul>
+<li><strong><a href="https://www3.ntu.edu.sg/scse/staff/czsun/projects/otfaq/" target="_blank" rel="noopener noreferrer">Operational Transformation FAQ — Chengzheng Sun</a></strong> — Comprehensive OT reference.</li>
+<li><strong><a href="https://lars.hupel.info/topics/crdt/01-intro/" target="_blank" rel="noopener noreferrer">A CRDT Primer — Lars Hupel</a></strong> — Gentle introduction to state-based CRDTs.</li>
+<li><strong><a href="https://docs.yjs.dev/" target="_blank" rel="noopener noreferrer">Yjs Documentation</a></strong> — The go-to production CRDT library for collaborative web apps.</li>
+<li><strong><a href="https://crdt.tech/" target="_blank" rel="noopener noreferrer">An Introduction to Conflict-Free Replicated Data Types — Conflict Free</a></strong> — curated CRDT papers and implementations.</li>
+<li><strong><a href="https://neil.fraser.name/writing/sync/" target="_blank" rel="noopener noreferrer">Differential Synchronization — Neil Fraser (Google)</a></strong> — Original paper with good diagrams.</li>
+<li><strong><a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/" target="_blank" rel="noopener noreferrer">How Figma&#x27;s Multiplayer Technology Works</a></strong> — Practical decisions from a production system.</li>
+<li><strong><a href="https://drive.googleblog.com/2010/09/whats-different-about-new-google-docs.html" target="_blank" rel="noopener noreferrer">Google Docs: The Mechanics of Real Time Collaboration</a></strong> — High-level description of the OT model.</li>
+<li><strong><a href="https://linear.app/blog/scaling-the-linear-sync-engine" target="_blank" rel="noopener noreferrer">Linear&#x27;s Sync Engine</a></strong> — How Linear (project management) built a fast offline-first sync engine.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="papers">Papers<a href="#papers" class="hash-link" aria-label="Direct link to Papers" title="Direct link to Papers">​</a></h3>
+<ul>
+<li><strong><a href="https://dl.acm.org/doi/10.1145/67544.66963" target="_blank" rel="noopener noreferrer">Designing Real-Time Group Editors (Ellis &amp; Gibbs, 1989)</a></strong> — The original OT paper.</li>
+<li><strong><a href="https://inria.hal.science/inria-00432368" target="_blank" rel="noopener noreferrer">Logoot: A Scalable Optimistic Replication Algorithm for Collaborative Editing (Weiss et al., 2009)</a></strong> — Position-based CRDT for text.</li>
+<li><strong><a href="https://inria.hal.science/inria-00555588" target="_blank" rel="noopener noreferrer">A Comprehensive Study of CRDTs (Shapiro et al., 2011)</a></strong> — The formal CRDT taxonomy paper.</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/engilyin/kb/docs/SystemDesign/real-time-collaborative-editor.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2026-05-29T03:35:48.000Z" itemprop="dateModified">May 29, 2026</time></b></span></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/kb/SystemDesign/content-history-and-versioning"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Content History and Versioning: System Design</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/kb/category/tools"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Tools</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#the-core-problem-concurrent-edits" class="table-of-contents__link toc-highlight">The Core Problem: Concurrent Edits</a></li><li><a href="#conflict-resolution-strategies" class="table-of-contents__link toc-highlight">Conflict Resolution Strategies</a><ul><li><a href="#1-last-write-wins-lww" class="table-of-contents__link toc-highlight">1. Last-Write-Wins (LWW)</a></li><li><a href="#2-operational-transformation-ot" class="table-of-contents__link toc-highlight">2. Operational Transformation (OT)</a></li><li><a href="#3-conflict-free-replicated-data-types-crdt" class="table-of-contents__link toc-highlight">3. Conflict-Free Replicated Data Types (CRDT)</a></li><li><a href="#4-differential-synchronization" class="table-of-contents__link toc-highlight">4. Differential Synchronization</a></li><li><a href="#5-event-sourcing--append-only-log" class="table-of-contents__link toc-highlight">5. Event Sourcing / Append-Only Log</a></li><li><a href="#6-client-side-prediction--server-reconciliation-game-engines" class="table-of-contents__link toc-highlight">6. Client-Side Prediction + Server Reconciliation (Game Engines)</a></li><li><a href="#strategy-comparison" class="table-of-contents__link toc-highlight">Strategy Comparison</a></li></ul></li><li><a href="#presence-and-awareness" class="table-of-contents__link toc-highlight">Presence and Awareness</a><ul><li><a href="#cursor-and-selection-sharing" class="table-of-contents__link toc-highlight">Cursor and Selection Sharing</a></li><li><a href="#awareness-protocol-yjs-approach" class="table-of-contents__link toc-highlight">Awareness Protocol (Yjs approach)</a></li></ul></li><li><a href="#offline-support" class="table-of-contents__link toc-highlight">Offline Support</a></li><li><a href="#transport-and-network-layer" class="table-of-contents__link toc-highlight">Transport and Network Layer</a><ul><li><a href="#selective-forwarding-unit-sfu--how-zoom-handles-video" class="table-of-contents__link toc-highlight">Selective Forwarding Unit (SFU) — How Zoom Handles Video</a></li></ul></li><li><a href="#real-world-examples" class="table-of-contents__link toc-highlight">Real-World Examples</a><ul><li><a href="#google-docs--ot-at-scale" class="table-of-contents__link toc-highlight">Google Docs — OT at Scale</a></li><li><a href="#counter-strike--client-prediction--lag-compensation" class="table-of-contents__link toc-highlight">Counter-Strike — Client Prediction + Lag Compensation</a></li><li><a href="#pivotal-tracker--simple-collaborative-backlog" class="table-of-contents__link toc-highlight">Pivotal Tracker — Simple Collaborative Backlog</a></li><li><a href="#zoom-whiteboard--what-not-to-do" class="table-of-contents__link toc-highlight">Zoom Whiteboard — What Not to Do</a></li></ul></li><li><a href="#system-design-collaborative-drawing-tool" class="table-of-contents__link toc-highlight">System Design: Collaborative Drawing Tool</a><ul><li><a href="#data-model" class="table-of-contents__link toc-highlight">Data Model</a></li><li><a href="#conflict-strategy" class="table-of-contents__link toc-highlight">Conflict Strategy</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a></li><li><a href="#handling-freehand-strokes" class="table-of-contents__link toc-highlight">Handling Freehand Strokes</a></li></ul></li><li><a href="#system-design-collaborative-document-editor" class="table-of-contents__link toc-highlight">System Design: Collaborative Document Editor</a><ul><li><a href="#data-model-1" class="table-of-contents__link toc-highlight">Data Model</a></li><li><a href="#architecture-1" class="table-of-contents__link toc-highlight">Architecture</a></li><li><a href="#sync-flow" class="table-of-contents__link toc-highlight">Sync Flow</a></li><li><a href="#offline--reconnect" class="table-of-contents__link toc-highlight">Offline + Reconnect</a></li><li><a href="#multi-user-cursor-rendering" class="table-of-contents__link toc-highlight">Multi-User Cursor Rendering</a></li></ul></li><li><a href="#putting-it-all-together" class="table-of-contents__link toc-highlight">Putting It All Together</a></li><li><a href="#interview-cheat-sheet" class="table-of-contents__link toc-highlight">Interview Cheat Sheet</a></li><li><a href="#further-reading-and-watching" class="table-of-contents__link toc-highlight">Further Reading and Watching</a><ul><li><a href="#must-watch-videos" class="table-of-contents__link toc-highlight">Must-Watch Videos</a></li><li><a href="#essential-articles" class="table-of-contents__link toc-highlight">Essential Articles</a></li><li><a href="#papers" class="table-of-contents__link toc-highlight">Papers</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Alex Ilin. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
